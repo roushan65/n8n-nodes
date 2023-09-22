@@ -1,5 +1,5 @@
 {
-  "name": "n8n-nodes",
+  "name": "n8n-nodes-roushan-learner",
   "version": "0.1.0",
   "description": "",
   "keywords": [
@@ -35,7 +35,8 @@
     ],
     "nodes": [
       "dist/nodes/ExampleNode/ExampleNode.node.js",
-      "dist/nodes/HttpBin/HttpBin.node.js"
+      "dist/nodes/HttpBin/HttpBin.node.js",
+      "dist/nodes/MathNode/MathNode.node.js"
     ]
   },
   "devDependencies": {
