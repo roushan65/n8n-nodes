@@ -30,6 +30,10 @@ export class MathNode implements INodeType {
 					{
 						name: '+',
 						value: '+',
+					},
+					{
+						name: '-',
+						value: '-',
 					}
 				],
 				default: '+',
@@ -47,18 +51,18 @@ export class MathNode implements INodeType {
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		let items = this.getInputData()
-		let num1Key = this.getNodeParameter("num1Key", 0, 'num1') as string;
-		let num2Key = this.getNodeParameter("num2Key", 0, 'num2') as string;
 		let operation = this.getNodeParameter("operation", 0, '') as string;
-		items.forEach((item)=>{
-			console.log(item.json[num1Key] as string + "  " + parseInt(item.json[num2Key] as string))
-			item.json.result = calculate(item.json[num1Key] as number, item.json[num2Key] as number, operation);
-		})
+
+		for(let itemIndex=0; itemIndex<items.length; itemIndex++) {
+			let num1 = this.getNodeParameter("num1Key", itemIndex, '0') as number;
+			let num2 = this.getNodeParameter("num2Key", itemIndex, '0') as number;
+			items[itemIndex].json.result = MathNode.calculate(num1, num2, operation);
+		}
 
 		return this.prepareOutputData(items)
 	}
 
-	calculate(num1: number, num2: number , operation: string): number|null {
+	static calculate(num1: number, num2: number , operation: string): number|null {
 		let result = null;
 		switch(operation) {
 			case '+':
